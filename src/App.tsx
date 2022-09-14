@@ -38,32 +38,17 @@ function App() {
   };
 
   const addPokemon = (id: number, pokemons: IPokemon[]) => {
-    const selected = pokemons.filter((pokemon) => {
-      if (id !== pokemon.id) {
-        return;
-      }
-
-      return pokemon;
-    });
-
+    const selected = pokemons.filter((item) => id === item.id);
     setPokemonsSelected([...pokemonsSelected, ...selected]);
   };
   const removePokemon = (id: number, pokemonsSelected: IPokemon[]) => {
-    const newListPokemons = pokemonsSelected.filter((pokemon) => {
-      if (pokemon.id === id) {
-        return;
-      }
-
-      return pokemon;
-    });
+    const newListPokemons = pokemonsSelected.filter((item) => id !== item.id);
 
     setPokemonsSelected([...newListPokemons]);
   };
 
-  console.log("pokes", pokemonsSelected);
-
   const getPokemonName = (id: number) => {
-    const poke = pokemons.find((p) => p.id === id);
+    const poke = pokemons.find((item) => item.id === id);
     return poke?.name + ", " || "";
   };
 
