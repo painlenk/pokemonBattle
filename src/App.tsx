@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getPokemons } from "./services/pokemonApi";
 import { IPokemon } from "./types/interfaces/IPokemon";
 import { ChartBar } from "./components/ChartBar";
+import { ChartScatter } from "./components/ChartScatter";
 
 function App() {
   const [selected, setSelected] = useState<any[]>([]);
@@ -88,11 +89,15 @@ function App() {
             <h3>Comparativo de Skills dos Pokémon</h3>
             <p>Escolha 2 pokemons para batalhar</p>
             {pokemonsSelected.length > 1 && (
-              <ChartBar pokemonsSelected={pokemonsSelected || []} />
+              <ChartBar pokemonsSelected={pokemonsSelected} />
             )}
           </div>
           <div className="card">
             <h3>Ataque e Resistência dos Pokémon</h3>
+
+            {pokemonsSelected.length > 1 && (
+              <ChartScatter pokemonsSelected={pokemonsSelected} />
+            )}
           </div>
         </div>
       </div>
