@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -14,32 +15,48 @@ interface IProps {
 }
 
 export const ChartBar: React.FC<IProps> = ({ pokemonsSelected }) => {
-  const data = [
-    {
-      name: "attack",
-      pokemon1: 2000,
-      pokemon2: 3000,
-      amt: 2400,
-    },
-    {
-      name: "def",
-      pokemon1: 2000,
-      pokemon2: 3000,
-      amt: 2400,
-    },
-    {
-      name: "atr",
-      pokemon1: 2000,
-      pokemon2: 3000,
-      amt: 2400,
-    },
-    {
-      name: "velo",
-      pokemon1: 2000,
-      pokemon2: 3000,
-      amt: 2400,
-    },
-  ];
+  const [dataPokemon, setDataPokemon] = useState([{}]);
+
+  useEffect(() => {
+    if (!pokemonsSelected) {
+      return;
+    }
+    const [pokemonSelected1, pokemonSelected2] = pokemonsSelected;
+
+    const data = [
+      {
+        name: "attack",
+        pokemon1: pokemonSelected1.skills.attack,
+        pokemon2: pokemonSelected2.skills.attack,
+      },
+      {
+        name: "resistance",
+        pokemon1: pokemonSelected1.skills.resistance,
+        pokemon2: pokemonSelected2.skills.resistance,
+      },
+      {
+        name: "mobility",
+        pokemon1: pokemonSelected1.skills.mobility,
+        pokemon2: pokemonSelected2.skills.mobility,
+      },
+      {
+        name: "punctuation",
+        pokemon1: pokemonSelected1.skills.punctuation,
+        pokemon2: pokemonSelected2.skills.punctuation,
+      },
+      {
+        name: "support",
+        pokemon1: pokemonSelected1.skills.support,
+        pokemon2: pokemonSelected2.skills.support,
+      },
+    ];
+    setDataPokemon(data);
+  }, [pokemonsSelected]);
+
+  if (!pokemonsSelected) {
+    return null;
+  }
+
   return (
     <div
       style={{
@@ -51,7 +68,7 @@ export const ChartBar: React.FC<IProps> = ({ pokemonsSelected }) => {
       <BarChart
         width={500}
         height={300}
-        data={data}
+        data={dataPokemon}
         margin={{
           top: 5,
           right: 30,
@@ -59,13 +76,21 @@ export const ChartBar: React.FC<IProps> = ({ pokemonsSelected }) => {
           bottom: 5,
         }}
       >
-        <CartesianGrid strokeDasharray="3 3" />
+        <CartesianGrid strokeDasharray="2 2" />
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
         <Legend />
-        <Bar dataKey="pokemon1" fill="#8884d8" />
-        <Bar dataKey="pokemon2" fill="#82ca9d" />
+        <Bar
+          name={pokemonsSelected[0].name}
+          dataKey="pokemon1"
+          fill={pokemonsSelected[0].color}
+        />
+        <Bar
+          name={pokemonsSelected[1].name}
+          dataKey="pokemon2"
+          fill={pokemonsSelected[1].color}
+        />
       </BarChart>
     </div>
   );

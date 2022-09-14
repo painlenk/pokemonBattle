@@ -13,7 +13,6 @@ function App() {
   useEffect(() => {
     getPokemons().then((response) => setPokemons(response));
   }, []);
-  console.log("selected ->", selected);
 
   const handleChange = (e: any) => {
     const id = Number(e.currentTarget.value);
@@ -69,6 +68,10 @@ function App() {
                   value={item.id}
                   checked={selected.includes(item.id)}
                   onChange={handleChange}
+                  disabled={
+                    pokemonsSelected.length >= 2 &&
+                    !pokemonsSelected.find((p) => p.id === item.id)
+                  }
                 />
                 <img
                   src={`https://unite.pokemon.com/images/pokemon/${item.avatar}/stat/stat-${item.avatar}.png`}
@@ -81,9 +84,12 @@ function App() {
         </div>
 
         <div className="charts">
-          <div className="card" style={{ height: "600px" }}>
+          <div className="card" style={{ height: "700px" }}>
             <h3>Comparativo de Skills dos Pokémon</h3>
-            <ChartBar />
+            <p>Escolha 2 pokemons para batalhar</p>
+            {pokemonsSelected.length > 1 && (
+              <ChartBar pokemonsSelected={pokemonsSelected || []} />
+            )}
           </div>
           <div className="card">
             <h3>Ataque e Resistência dos Pokémon</h3>

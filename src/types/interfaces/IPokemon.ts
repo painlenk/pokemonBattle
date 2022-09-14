@@ -1,24 +1,14 @@
+import { iEvolutions } from "./IEvolutions";
+import { ISkills } from "./ISkills";
+
 export interface IPokemon {
   id: number;
   name: string;
   avatar: string;
   description: string;
   level: number;
-  stats_battle: ["Supporter", "Melee"];
+  stats_battle: string[];
   color: string;
-  skills: {
-    attack: number;
-    resistance: number;
-    mobility: number;
-    punctuation: number;
-    support: number;
-  };
-  evolutions?: [
-    {
-      id: number;
-      name: string;
-      avatar: string;
-      level: number;
-    }
-  ];
+  skills: ISkills;
+  evolutions?: iEvolutions[];
 }
