@@ -1,9 +1,16 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getPokemons } from "./services/pokemonApi";
+import { IPokemon } from "./types/interfaces/IPokemon";
 
 function App() {
   const [selected, setSelected] = useState<any[]>([]);
-  const data = [];
+  const [pokemons, setPokemons] = useState<IPokemon[]>([]);
+  const [maxSelection, setMaxSelection] = useState(0);
+
+  useEffect(() => {
+    getPokemons().then((response) => setPokemons(response));
+  }, []);
 
   const handleChange = (e: any) => {
     const id = Number(e.currentTarget.value);
@@ -14,14 +21,19 @@ function App() {
       const index = selected.findIndex((p) => p === id);
       newSelection.splice(index, 1);
       setSelected(newSelection);
+      setMaxSelection((prev) => prev - 1);
     } else {
+      if (maxSelection >= 2) {
+        return;
+      }
       newSelection.push(id);
       setSelected(newSelection);
+      setMaxSelection((prev) => prev + 1);
     }
   };
 
   const getPokemonName = (id: number) => {
-    const poke = data.find((p) => p.id === id);
+    const poke = pokemons.find((p) => p.id === id);
     return poke?.name + ", " || "";
   };
 
@@ -35,7 +47,7 @@ function App() {
             eu escolho você!
           </h3>
           <ul>
-            {data.map((item) => (
+            {pokemons.map((item) => (
               <li key={item.id}>
                 <input
                   type="checkbox"
