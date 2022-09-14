@@ -2,8 +2,8 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import { getPokemons } from "./services/pokemonApi";
 import { IPokemon } from "./types/interfaces/IPokemon";
-import { ChartBar } from "./components/ChartBar";
-import { ChartScatter } from "./components/ChartScatter";
+import ChartBar from "./components/ChartBar";
+import ChartScatter from "./components/ChartScatter";
 
 function App() {
   const [selected, setSelected] = useState<any[]>([]);

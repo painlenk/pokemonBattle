@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import {
   ScatterChart,
   Scatter,
@@ -23,7 +23,7 @@ type dataPokemon = [
   }
 ];
 
-export const ChartScatter: React.FC<IProps> = ({ pokemonsSelected }) => {
+const ChartScatter: React.FC<IProps> = ({ pokemonsSelected }) => {
   if (!pokemonsSelected) {
     return null;
   }
@@ -89,3 +89,5 @@ export const ChartScatter: React.FC<IProps> = ({ pokemonsSelected }) => {
     </div>
   );
 };
+
+export default memo(ChartScatter);

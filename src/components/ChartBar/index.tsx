@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -14,7 +14,7 @@ interface IProps {
   pokemonsSelected?: IPokemon[];
 }
 
-export const ChartBar: React.FC<IProps> = ({ pokemonsSelected }) => {
+const ChartBar: React.FC<IProps> = ({ pokemonsSelected }) => {
   const [dataPokemon, setDataPokemon] = useState([{}]);
 
   useEffect(() => {
@@ -95,3 +95,5 @@ export const ChartBar: React.FC<IProps> = ({ pokemonsSelected }) => {
     </div>
   );
 };
+
+export default memo(ChartBar);
