@@ -20,10 +20,11 @@
 
 .list {
   width: 400px;
+ 
 }
 
 .list ul {
-  max-height: 500px;
+  max-height: 800px;
   overflow: hidden auto;
   list-style: none;
   text-align: left;

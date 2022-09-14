@@ -60,7 +60,7 @@ export const ChartScatter: React.FC<IProps> = ({ pokemonsSelected }) => {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <ScatterChart
-        width={400}
+        width={600}
         height={400}
         margin={{
           top: 20,
