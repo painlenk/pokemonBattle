@@ -85,7 +85,7 @@ function App() {
         </div>
 
         <div className="charts">
-          <div className="card" style={{ height: "700px" }}>
+          <div className="card">
             <h3>Comparativo de Skills dos Pokémon</h3>
             <p>Escolha 2 pokemons para batalhar</p>
             {pokemonsSelected.length > 1 && (

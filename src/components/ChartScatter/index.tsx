@@ -53,9 +53,7 @@ export const ChartScatter: React.FC<IProps> = ({ pokemonsSelected }) => {
     ]);
   }, [pokemonsSelected, data1, data2]);
 
-  const ticksRange = [
-    10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 120, 140, 160, 180, 200,
-  ];
+  const ticksRange = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 120];
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
@@ -70,10 +68,10 @@ export const ChartScatter: React.FC<IProps> = ({ pokemonsSelected }) => {
         }}
       >
         <CartesianGrid />
-        <XAxis type="number" dataKey="x" name="stature" ticks={ticksRange} />
-        <YAxis type="number" dataKey="y" name="weight" ticks={ticksRange} />
-        <ZAxis type="number" dataKey="z" range={[60, 400]} name="score" />
-        <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+        <XAxis type="number" dataKey="x" name="Attack" ticks={ticksRange} />
+        <YAxis type="number" dataKey="y" name="resistance" ticks={ticksRange} />
+        <ZAxis type="number" dataKey="z" range={[100, 200]} name="score" />
+        <Tooltip active={true} cursor={false} />
         <Legend />
         <Scatter
           name={pokemon1?.name}
