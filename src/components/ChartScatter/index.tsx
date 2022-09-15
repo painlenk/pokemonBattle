@@ -8,6 +8,7 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  Label,
 } from "recharts";
 import { IPokemon } from "../../types/interfaces/IPokemon";
 
@@ -58,18 +59,23 @@ const ChartScatter: React.FC<IProps> = ({ pokemonsSelected }) => {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <ScatterChart
-        width={600}
+        width={700}
         height={400}
         margin={{
-          top: 20,
-          right: 20,
-          bottom: 20,
-          left: 20,
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 60,
         }}
+        style={{ padding: "40px" }}
       >
-        <CartesianGrid />
-        <XAxis type="number" dataKey="x" name="Attack" ticks={ticksRange} />
-        <YAxis type="number" dataKey="y" name="resistance" ticks={ticksRange} />
+        <CartesianGrid display={"teste"} />
+        <XAxis type="number" dataKey="x" name="Attack" ticks={ticksRange}>
+          <Label value="Attack" position={{ x: 300, y: 40 }} />
+        </XAxis>
+        <YAxis type="number" dataKey="y" name="Resistance" ticks={ticksRange}>
+          <Label value="Resistance" position={{ x: 40, y: 200 }} />
+        </YAxis>
         <ZAxis type="number" dataKey="z" range={[100, 200]} name="score" />
         <Tooltip active={true} cursor={false} />
         <Legend />
