@@ -66,15 +66,16 @@ const ChartBar: React.FC<IProps> = ({ pokemonsSelected }) => {
       }}
     >
       <BarChart
-        width={500}
-        height={300}
+        width={700}
+        height={250}
         data={dataPokemon}
         margin={{
-          top: 5,
-          right: 30,
-          left: 20,
-          bottom: 5,
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 60,
         }}
+        style={{ padding: "40px" }}
       >
         <CartesianGrid strokeDasharray="2 2" />
         <XAxis dataKey="name" />
@@ -90,6 +91,7 @@ const ChartBar: React.FC<IProps> = ({ pokemonsSelected }) => {
           name={pokemonsSelected[1].name}
           dataKey="pokemon2"
           fill={pokemonsSelected[1].color}
+          isAnimationActive={true}
         />
       </BarChart>
     </div>

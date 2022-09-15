@@ -60,7 +60,7 @@ const ChartScatter: React.FC<IProps> = ({ pokemonsSelected }) => {
     <div style={{ display: "flex", justifyContent: "center" }}>
       <ScatterChart
         width={700}
-        height={400}
+        height={250}
         margin={{
           top: 0,
           right: 0,
@@ -74,7 +74,7 @@ const ChartScatter: React.FC<IProps> = ({ pokemonsSelected }) => {
           <Label value="Attack" position={{ x: 300, y: 40 }} />
         </XAxis>
         <YAxis type="number" dataKey="y" name="Resistance" ticks={ticksRange}>
-          <Label value="Resistance" position={{ x: 40, y: 200 }} />
+          <Label value="Resistance" position={{ x: 30, y: 100 }} />
         </YAxis>
         <ZAxis type="number" dataKey="z" range={[100, 200]} name="score" />
         <Tooltip active={true} cursor={false} />
@@ -84,12 +84,15 @@ const ChartScatter: React.FC<IProps> = ({ pokemonsSelected }) => {
           data={data1}
           fill={pokemon1?.color}
           shape="triangle"
+          isAnimationActive={true}
         />
         <Scatter
           name={pokemon2?.name}
           data={data2}
           fill={pokemon2?.color}
           shape="triangle"
+          alignmentBaseline="central"
+          isAnimationActive={true}
         />
       </ScatterChart>
     </div>
