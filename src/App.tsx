@@ -26,33 +26,30 @@ function App() {
       setSelected(newSelection);
       setMaxSelection((prev) => prev - 1);
       removePokemon(id, pokemonsSelected);
+    } else {
+      if (maxSelection >= 2) {
+        return;
+      }
+      newSelection.push(id);
+      setSelected(newSelection);
+      setMaxSelection((prev) => prev + 1);
+      addPokemon(id, pokemons);
     }
-    if (maxSelection >= 2) {
-      return;
-    }
-
-    newSelection.push(id);
-    setSelected(newSelection);
-    setMaxSelection((prev) => prev + 1);
-    addPokemon(id, pokemons);
   };
 
   const addPokemon = (id: number, pokemons: IPokemon[]) => {
-    (id: number, pokemons: IPokemon[]) => {
-      const selected = pokemons.filter((item) => id === item.id);
-      setPokemonsSelected([...pokemonsSelected, ...selected]);
-    };
+    const selected = pokemons.filter((item) => id === item.id);
+    setPokemonsSelected([...pokemonsSelected, ...selected]);
+  };
+  const removePokemon = (id: number, pokemonsSelected: IPokemon[]) => {
+    const newListPokemons = pokemonsSelected.filter((item) => id !== item.id);
+
+    setPokemonsSelected([...newListPokemons]);
   };
 
   const getPokemonName = (id: number) => {
     const poke = pokemons.find((item) => item.id === id);
     return poke?.name + ", " || "";
-  };
-
-  const removePokemon = (id: number, pokemonsSelected: IPokemon[]) => {
-    const newListPokemons = pokemonsSelected.filter((item) => id !== item.id);
-
-    setPokemonsSelected([...newListPokemons]);
   };
 
   return (
