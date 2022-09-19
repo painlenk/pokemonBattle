@@ -1,5 +1,5 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { getPokemons } from "./services/pokemonApi";
 import { IPokemon } from "./types/interfaces/IPokemon";
 import ChartBar from "./components/ChartBar";
@@ -26,25 +26,22 @@ function App() {
       setSelected(newSelection);
       setMaxSelection((prev) => prev - 1);
       removePokemon(id, pokemonsSelected);
-    } else {
-      if (maxSelection >= 2) {
-        return;
-      }
-      newSelection.push(id);
-      setSelected(newSelection);
-      setMaxSelection((prev) => prev + 1);
-      addPokemon(id, pokemons);
     }
+    if (maxSelection >= 2) {
+      return;
+    }
+
+    newSelection.push(id);
+    setSelected(newSelection);
+    setMaxSelection((prev) => prev + 1);
+    addPokemon(id, pokemons);
   };
 
   const addPokemon = (id: number, pokemons: IPokemon[]) => {
-    const selected = pokemons.filter((item) => id === item.id);
-    setPokemonsSelected([...pokemonsSelected, ...selected]);
-  };
-  const removePokemon = (id: number, pokemonsSelected: IPokemon[]) => {
-    const newListPokemons = pokemonsSelected.filter((item) => id !== item.id);
-
-    setPokemonsSelected([...newListPokemons]);
+    (id: number, pokemons: IPokemon[]) => {
+      const selected = pokemons.filter((item) => id === item.id);
+      setPokemonsSelected([...pokemonsSelected, ...selected]);
+    };
   };
 
   const getPokemonName = (id: number) => {
@@ -52,15 +49,18 @@ function App() {
     return poke?.name + ", " || "";
   };
 
+  const removePokemon = (id: number, pokemonsSelected: IPokemon[]) => {
+    const newListPokemons = pokemonsSelected.filter((item) => id !== item.id);
+
+    setPokemonsSelected([...newListPokemons]);
+  };
+
   return (
     <>
       <h1>Poké Analytics</h1>
       <div className="pannel-container">
         <div className="card list">
-          <h3>
-            {selected.map((id) => getPokemonName(id))}
-            eu escolho você!
-          </h3>
+          <h3>{selected.map((id) => getPokemonName(id))}</h3>
           <ul>
             {pokemons.map((item) => (
               <li key={item.id}>
