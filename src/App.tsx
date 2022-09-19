@@ -1,5 +1,5 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { getPokemons } from "./services/pokemonApi";
 import { IPokemon } from "./types/interfaces/IPokemon";
 import ChartBar from "./components/ChartBar";
@@ -15,7 +15,7 @@ function App() {
     getPokemons().then((response) => setPokemons(response));
   }, []);
 
-  const handleChange = (e: any) => {
+  const handleChange = useCallback((e: any) => {
     const id = Number(e.currentTarget.value);
     const isChecked = e.currentTarget.checked;
     const newSelection = [...selected];
@@ -26,41 +26,44 @@ function App() {
       setSelected(newSelection);
       setMaxSelection((prev) => prev - 1);
       removePokemon(id, pokemonsSelected);
-    } else {
-      if (maxSelection >= 2) {
-        return;
-      }
-      newSelection.push(id);
-      setSelected(newSelection);
-      setMaxSelection((prev) => prev + 1);
-      addPokemon(id, pokemons);
     }
-  };
+    if (maxSelection >= 2) {
+      return;
+    }
 
-  const addPokemon = (id: number, pokemons: IPokemon[]) => {
-    const selected = pokemons.filter((item) => id === item.id);
-    setPokemonsSelected([...pokemonsSelected, ...selected]);
-  };
-  const removePokemon = (id: number, pokemonsSelected: IPokemon[]) => {
-    const newListPokemons = pokemonsSelected.filter((item) => id !== item.id);
+    newSelection.push(id);
+    setSelected(newSelection);
+    setMaxSelection((prev) => prev + 1);
+    addPokemon(id, pokemons);
+  }, []);
 
-    setPokemonsSelected([...newListPokemons]);
-  };
+  const addPokemon = useCallback((id: number, pokemons: IPokemon[]) => {
+    (id: number, pokemons: IPokemon[]) => {
+      const selected = pokemons.filter((item) => id === item.id);
+      setPokemonsSelected([...pokemonsSelected, ...selected]);
+    };
+  }, []);
 
-  const getPokemonName = (id: number) => {
+  const getPokemonName = useCallback((id: number) => {
     const poke = pokemons.find((item) => item.id === id);
     return poke?.name + ", " || "";
-  };
+  }, []);
+
+  const removePokemon = useCallback(
+    (id: number, pokemonsSelected: IPokemon[]) => {
+      const newListPokemons = pokemonsSelected.filter((item) => id !== item.id);
+
+      setPokemonsSelected([...newListPokemons]);
+    },
+    [pokemonsSelected]
+  );
 
   return (
     <>
       <h1>Poké Analytics</h1>
       <div className="pannel-container">
         <div className="card list">
-          <h3>
-            {selected.map((id) => getPokemonName(id))}
-            eu escolho você!
-          </h3>
+          <h3>{selected.map((id) => getPokemonName(id))}</h3>
           <ul>
             {pokemons.map((item) => (
               <li key={item.id}>
