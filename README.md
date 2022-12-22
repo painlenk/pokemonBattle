@@ -26,4 +26,4 @@ https://6283929f92a6a5e462260498.mockapi.io/pokemon
 
 ### Social:
 Linkedin:
-Leo Valle: https://www.linkedin.com/in/leo-valle-6519b1216/
+Leo Valle: https://www.linkedin.com/in/leo-valle/
